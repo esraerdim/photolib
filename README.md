@@ -1,4 +1,4 @@
-# Photolib — Photography Portfolio
+# Lena Voss — Photography Portfolio
 
 Single-page photography portfolio. The image gallery grid is the centerpiece. Plain HTML5 and CSS3 — no frameworks, no build step.
 
