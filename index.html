@@ -14,19 +14,66 @@
 <body>
   <a class="skip" href="#work">Skip to work</a>
 
-  <header class="site-header" id="top">
+  <header class="topbar" id="top">
     <nav class="nav" aria-label="Primary">
-      <a class="nav__brand" href="#top">Lena Voss</a>
-      <ul class="nav__links">
+      <a class="logo" href="#top">Lena Voss</a>
+      <ul class="menu">
         <li><a href="#work">Work</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a class="btn btn--fill" href="#contact">Book a shoot</a>
+      <a class="btn solid" href="#contact">Book a shoot</a>
     </nav>
   </header>
 
   <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <ul class="ticker-list">
+            <li>Portrait &amp; editorial</li>
+            <li>Berlin</li>
+            <li class="hot">Booking spring 2026</li>
+            <li>On location worldwide</li>
+          </ul>
+          <ul class="ticker-list">
+            <li>Portrait &amp; editorial</li>
+            <li>Berlin</li>
+            <li class="hot">Booking spring 2026</li>
+            <li>On location worldwide</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="wrap hero-top">
+        <h1 id="hero-title">
+          <span>Light,</span>
+          <span>before it</span>
+          <span class="accent">settles.</span>
+        </h1>
+        <div class="intro">
+          <p>Lena Voss shoots portraits and still spaces for magazines and private clients — early light, few props, nothing forced.</p>
+          <div class="hero-btns">
+            <a class="btn outline" href="#work">See the work</a>
+            <a class="btn link" href="#contact">Book a shoot</a>
+          </div>
+        </div>
+      </div>
+
+      <figure class="hero-pic">
+        <div class="pic-wrap">
+          <img
+            src="assets/img/hero.jpg"
+            width="1800"
+            height="1000"
+            alt="City street at dusk"
+            fetchpriority="high"
+          >
+        </div>
+        <figcaption class="caption"><b>00</b><span>Kreuzberg rooftop — 2025</span></figcaption>
+      </figure>
+    </section>
+
     <section id="work" aria-label="Work"></section>
     <section id="about" aria-label="About"></section>
     <section id="contact" aria-label="Contact"></section>
