@@ -16,12 +16,6 @@ Single-page photography portfolio. The image gallery grid is the centerpiece. Pl
 
 Open `index.html` in a browser, or serve the folder:
 
-```bash
-npx serve .
-# or
-python3 -m http.server
-```
-
 ## Structure
 
 ```
