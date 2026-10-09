@@ -214,7 +214,73 @@
       </div>
     </section>
 
-    <section id="contact" aria-label="Contact"></section>
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <figure class="contact-pic">
+        <img src="assets/img/contact.jpg" width="1000" height="1400" alt="A sunlit lane before the city wakes" loading="lazy">
+        <figcaption class="caption"><b>07:40</b><span>— Nørrebro, before the first tram</span></figcaption>
+      </figure>
+
+      <div class="contact-body">
+        <div class="contact-intro">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Let's book the morning.</h2>
+          <p>Tell me about the building and when it will be ready. I reply within two working days — and I shoot before eight.</p>
+        </div>
+
+        <form class="form" action="mailto:hello@lenavoss.com" method="post" enctype="text/plain" aria-label="Booking request">
+          <div class="form-row">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@studio.com">
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>What are we shooting?</legend>
+            <div class="chips">
+              <label class="chip">
+                <input type="radio" name="type" value="Completed building" checked>
+                <span>Completed building</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="type" value="Interior">
+                <span>Interior</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="type" value="Construction progress">
+                <span>Construction progress</span>
+              </label>
+              <label class="chip">
+                <input type="radio" name="type" value="Editorial feature">
+                <span>Editorial feature</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="f-date">Preferred dates</label>
+            <input id="f-date" name="dates" type="text" placeholder="e.g. late March 2027">
+          </div>
+
+          <div class="field">
+            <label for="f-msg">About the project</label>
+            <textarea id="f-msg" name="message" rows="3" placeholder="Location, architect, and what the photographs are for"></textarea>
+          </div>
+
+          <div class="form-submit">
+            <button class="btn ink" type="submit">
+              <span>Send request</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <span class="form-alt">or write directly — <a href="mailto:hello@lenavoss.com">hello@lenavoss.com</a></span>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
   <!-- lightbox: opens with :target-->

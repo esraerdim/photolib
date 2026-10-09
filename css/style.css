@@ -139,6 +139,24 @@ a:hover {
   color: var(--clay-deep);
 }
 
+.btn.ink {
+  justify-content: space-between;
+  gap: 32px;
+  min-width: min(100%, 280px);
+  min-height: 54px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 0;
+  font-size: 15px;
+}
+
+.btn.ink:hover {
+  background: var(--clay-deep);
+  color: var(--paper);
+}
+
 /* header */
 .topbar {
   position: sticky;
@@ -495,6 +513,187 @@ a:hover {
 
 .facts .hot-text {
   color: var(--clay-deep);
+}
+
+/* contact */
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  background: var(--sky);
+  border-top: 2px solid var(--rule);
+  scroll-margin-top: 64px;
+}
+
+.contact-pic {
+  position: relative;
+  flex: 1 1 320px;
+  max-width: 600px;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.contact-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-body {
+  flex: 2 1 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: clamp(48px, 5vw, 88px) var(--edge);
+}
+
+.contact-intro h2 {
+  font-size: clamp(32px, 4.4vw, 68px);
+  line-height: 1;
+  margin: 20px 0;
+  max-width: 14ch;
+}
+
+.contact-intro p:last-child {
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.6;
+  max-width: 44ch;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 760px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 30px clamp(20px, 3vw, 40px);
+}
+
+.form-row > * {
+  min-width: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.field label,
+.field legend {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field legend {
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 10px 0;
+  font: inherit;
+  font-size: clamp(18px, 1.5vw, 24px);
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 0;
+  outline: none;
+}
+
+.field textarea {
+  font-size: clamp(17px, 1.3vw, 21px);
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-bottom-color: var(--clay);
+  outline: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(38, 35, 31, 0.4);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.chip span {
+  display: inline-block;
+  padding: 11px 16px;
+  font-size: 14px;
+  line-height: 1;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+}
+
+.chip:hover span {
+  background: rgba(38, 35, 31, 0.08);
+}
+
+.chip input:checked + span {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chip input:focus-visible + span {
+  outline: 2px solid var(--clay);
+  outline-offset: 2px;
+}
+
+.form-submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 6px;
+}
+
+.form-alt {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.form-alt a {
+  color: var(--ink);
+}
+
+.form-alt a:hover {
+  color: var(--clay);
 }
 
 .viewer {
