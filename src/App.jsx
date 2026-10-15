@@ -1,18 +1,11 @@
-import Footer from './components/Footer.jsx'
-import Header from './components/Header.jsx'
-import Hero from './components/Hero.jsx'
-import MainContent from './components/MainContent.jsx'
+import SiteLayout from './layouts/SiteLayout.jsx'
+import Home from './pages/Home.jsx'
 
 function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <MainContent />
-      </main>
-      <Footer />
-    </>
+    <SiteLayout>
+      <Home />
+    </SiteLayout>
   )
 }
 
