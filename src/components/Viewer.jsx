@@ -1,4 +1,4 @@
-function Viewer({ work, total, onClose, onPrev, onNext }) {
+function Viewer({ work, position, total, onClose, onPrev, onNext }) {
   return (
     <div
       className="fixed inset-0 z-30 grid grid-rows-[auto_minmax(0,1fr)_auto] bg-paper/95 text-ink"
@@ -8,7 +8,7 @@ function Viewer({ work, total, onClose, onPrev, onNext }) {
     >
       <div className="flex items-center justify-between gap-4 border-b-2 border-ink/20 px-4 py-3.5 text-[13px] tracking-[0.1em] uppercase">
         <span>
-          <b className="font-semibold text-clay-deep">{work.id}</b> / {String(total).padStart(2, '0')}
+              <b className="font-semibold text-clay-deep">{String(position).padStart(2, '0')}</b> / {String(total).padStart(2, '0')}
         </span>
         <button
           type="button"
