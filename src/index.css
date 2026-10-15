@@ -10,7 +10,7 @@
   --color-clay-deep: #86402c;
   --animate-marquee: marquee 34s linear infinite;
 }
-
+/* Hero bar  animation */
 @keyframes marquee {
   to {
     transform: translateX(-50%);

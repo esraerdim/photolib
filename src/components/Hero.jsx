@@ -48,11 +48,11 @@ function Hero() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-8 px-5 pt-12 pb-8 sm:gap-12 sm:px-8 sm:pt-16 md:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:px-[72px] lg:pt-24 lg:pb-14">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-8 px-5 pt-12 pb-8 sm:gap-12 sm:px-8 sm:pt-16 md:grid-cols-[1.1fr_0.9fr] md:pt-20 lg:px-[72px] lg:pt-24 lg:pb-14">
         <div className="min-w-0">
           <h1
             id="hero-title"
-            className="text-[42px] leading-[0.96] font-extrabold tracking-[-0.035em] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[120px]"
+            className="text-[42px] leading-[0.96] font-extrabold tracking-[-0.035em] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[104px]"
           >
             <span className="block">Light,</span>
             <span className="block">before it</span>
@@ -79,7 +79,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto aspect-[1/1.05] w-full max-w-[440px] lg:mr-0 lg:ml-auto" aria-hidden="true">
+        <div className="relative mr-auto aspect-[1/1.05] w-full max-w-[440px] md:mr-0 md:ml-auto" aria-hidden="true">
           {board.map((shot) => (
             <div
               key={shot.id}
