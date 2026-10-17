@@ -21,6 +21,7 @@ function YearButton({ current, value, onChoose, children }) {
 
 function Work() {
   const [year, setYear] = useState('all')
+  const [ratings, setRatings] = useState({})
   const [openId, setOpenId] = useState(null)
   const visible = year === 'all' ? works : works.filter((work) => work.year === year)
   const openIndex = visible.findIndex((work) => work.id === openId)
@@ -50,6 +51,10 @@ function Work() {
     setOpenId(visible[next].id)
   }
 
+  function setRating(id, value) {
+    setRatings((current) => ({ ...current, [id]: value }))
+  }
+
   function chooseYear(nextYear) {
     setYear(nextYear)
     const nextVisible = nextYear === 'all' ? works : works.filter((work) => work.year === nextYear)
@@ -75,7 +80,13 @@ function Work() {
       </div>
       <div className="grid grid-cols-1 gap-0.5 border-y-2 border-ink/20 bg-ink/20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visible.map((work) => (
-          <WorkCard key={work.id} work={work} onOpen={setOpenId} />
+          <WorkCard
+            key={work.id}
+            work={work}
+            rating={ratings[work.id] ?? 0}
+            onRate={(value) => setRating(work.id, value)}
+            onOpen={setOpenId}
+          />
         ))}
       </div>
       {openWork ? (
