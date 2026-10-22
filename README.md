@@ -39,4 +39,6 @@ src/data/works.js the twelve photographs
 public/assets/img photos
 ```
 
-`server/index.js` starts Express. `GET /api/health` only checks that the server is up. The photographs still live in `client/src/data/works.js` until they move into the database.
+`server/index.js` starts Express. `GET /api/health` only checks that the server is up.
+
+`server/auth.js` is Better Auth. It owns the `user`, `session`, `account`, and `verification` tables. `server/schema.sql` is ours: `works` (the photographs), `ratings` (one person's stars on one photograph), and `saves` (one person's saved photographs). `npm run db:seed` copies `client/src/data/works.js` into `works`.
