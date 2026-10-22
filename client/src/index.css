@@ -19,6 +19,55 @@
   }
 }
 
+@keyframes plate {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes draw-line {
+  0% {
+    background-size: 0 1px;
+    background-position: left bottom;
+  }
+  45%,
+  70% {
+    background-size: 100% 1px;
+    background-position: left bottom;
+  }
+  100% {
+    background-size: 0 1px;
+    background-position: right bottom;
+  }
+}
+
+.plate-sheen {
+  animation: plate 1.8s ease-in-out infinite;
+}
+
+.loading-line {
+  padding-bottom: 3px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0 1px;
+  animation: draw-line 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate-sheen,
+  .loading-line {
+    animation: none;
+  }
+
+  .loading-line {
+    background-size: 100% 1px;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

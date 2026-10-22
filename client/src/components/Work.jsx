@@ -139,6 +139,7 @@ function Work({ savedOnly = false }) {
           {title}
         </h2>
         <p className="text-[13px] leading-none tracking-[0.12em] text-clay-deep uppercase sm:ml-auto">
+          {status === 'loading' ? <span className="loading-line">Loading</span> : null}
           {status === 'ready' ? `${visible.length} ${visible.length === 1 ? 'photograph' : 'photographs'}` : ''}
           {!savedOnly && status === 'ready' ? (year === 'all' ? ' · 2021–2026' : ` · ${year}`) : ''}
         </p>
@@ -151,7 +152,29 @@ function Work({ savedOnly = false }) {
           ))}
         </div>
       )}
-      {status === 'loading' ? <p className="px-5 pb-12 text-muted sm:px-8 lg:px-[72px]">Loading photographs…</p> : null}
+      {status === 'loading' ? (
+        <div
+          className="grid grid-cols-1 gap-0.5 border-y-2 border-ink/20 bg-ink/20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          aria-busy="true"
+          aria-live="polite"
+        >
+          <p className="sr-only">Loading photographs</p>
+          {Array.from({ length: 8 }, (_, index) => (
+            <div key={index} className={`flex flex-col bg-paper ${index > 3 ? 'max-sm:hidden' : ''}`}>
+              <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+                <span
+                  className="plate-sheen absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-paper to-transparent"
+                  style={{ animationDelay: `${index * 140}ms` }}
+                />
+              </div>
+              <div className="flex flex-col gap-2.5 px-3 pt-2.5 pb-3" aria-hidden="true">
+                <span className="h-2.5 w-2/3 bg-sand" />
+                <span className="h-2.5 w-1/4 bg-ink/10" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
       {status === 'error' ? (
         <div className="flex flex-wrap items-center gap-4 px-5 pb-12 sm:px-8 lg:px-[72px]">
           <p className="text-clay-deep">The photographs could not be loaded.</p>
