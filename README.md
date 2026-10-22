@@ -20,6 +20,8 @@ npm run dev
 
 The site is at http://localhost:5173. The API is at http://localhost:3001.
 
+Before the API can reach the database, copy `server/.env.example` to `server/.env` and fill in `DATABASE_URL` and `AUTH_SECRET`. That file is listed in `.gitignore` and must not be committed.
+
 ## Structure
 
 ```

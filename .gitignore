@@ -13,6 +13,11 @@ dist
 dist-ssr
 *.local
 
+# Secrets. .env.example is the template and stays in git.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
