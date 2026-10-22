@@ -55,12 +55,8 @@ function Footer() {
         <div className="flex min-w-0 flex-col items-start gap-2.5 text-sm leading-normal">
           <p className="text-xs tracking-[0.12em] text-clay-deep uppercase">Next available</p>
           <p className="text-[22px] leading-tight font-extrabold lg:text-[28px]">January 2027</p>
-          <a
-            className="inline-flex min-h-10 items-center gap-1.5 border border-ink px-3.5 py-2 text-sm leading-tight font-extrabold text-ink no-underline hover:bg-ink hover:text-paper"
-            href="#contact"
-          >
-            <span>Book a shoot</span>
-            <span aria-hidden="true">→</span>
+          <a className="btn btn-primary" href="#contact">
+            <span className="btn-label">Book a shoot</span>
           </a>
         </div>
       </div>

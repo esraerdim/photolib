@@ -1,6 +1,6 @@
 import StarRating from './StarRating.jsx'
 
-function WorkCard({ work, rating, onRate, onOpen }) {
+function WorkCard({ work, rating, saved, onRate, onSave, onOpen }) {
   return (
     <figure id={`work-${work.id}`} className="flex min-w-0 scroll-mt-20 flex-col bg-paper">
       <button
@@ -28,7 +28,18 @@ function WorkCard({ work, rating, onRate, onOpen }) {
           </span>
           <span className="text-muted">{work.year}</span>
         </div>
-        <StarRating value={rating} onChange={onRate} />
+        <div className="flex items-center justify-between gap-3">
+          <StarRating value={rating} onChange={onRate} />
+          <button
+            type="button"
+            className={`px-0.5 text-lg leading-none ${saved ? 'text-clay' : 'text-ink/25'}`}
+            aria-pressed={saved}
+            aria-label={saved ? `Remove ${work.title} from saved` : `Save ${work.title}`}
+            onClick={onSave}
+          >
+            {saved ? '♥' : '♡'}
+          </button>
+        </div>
       </figcaption>
     </figure>
   )

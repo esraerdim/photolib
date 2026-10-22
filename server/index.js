@@ -7,9 +7,10 @@ import worksRouter from './routes/works.js'
 
 const app = express()
 const port = process.env.PORT || 3001
+const clientOrigin = process.env.CLIENT_ORIGIN?.replace(/\/$/, '')
 
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN,
+  origin: clientOrigin,
   credentials: true,
 }))
 
@@ -28,6 +29,6 @@ app.use((err, req, res, _next) => {
   res.status(500).json({ error: 'Something went wrong' })
 })
 
-app.listen(port, () => {
-  console.log(`Server listening on http://localhost:${port}`)
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server listening on port ${port}`)
 })

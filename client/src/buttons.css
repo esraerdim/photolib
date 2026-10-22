@@ -1,0 +1,142 @@
+/* 13px caps, 0.2em tracking, 1px lines. The line draws left to right under the label. */
+
+.nav-link,
+.btn {
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0 0 3px;
+  border: 0;
+  background-color: transparent;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0 1px;
+  color: var(--color-ink);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-size 320ms ease;
+}
+
+.nav-link:hover,
+.nav-link:active,
+.nav-link[aria-current='page'] {
+  color: var(--color-clay);
+  background-size: 100% 1px;
+}
+
+.nav-link:focus-visible {
+  outline: 1px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+.nav-link:focus-visible:hover,
+.nav-link[aria-current='page']:focus-visible {
+  outline-color: var(--color-clay);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.btn-label {
+  margin-right: -0.2em;
+  padding-bottom: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0 1px;
+  transition: background-size 320ms ease;
+}
+
+.btn:hover .btn-label,
+.btn:active .btn-label {
+  background-size: 100% 1px;
+}
+
+.btn:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  border-color: var(--color-clay);
+  background: var(--color-clay);
+  color: var(--color-paper);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  border-color: var(--color-clay-deep);
+  background: var(--color-clay-deep);
+}
+
+.btn-primary:focus-visible {
+  outline-color: var(--color-clay);
+}
+
+.btn-secondary {
+  border-color: var(--color-ink);
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary[aria-current='page'] {
+  border-color: var(--color-clay);
+  background: transparent;
+  color: var(--color-clay);
+}
+
+.btn-secondary[aria-current='page'] .btn-label {
+  background-size: 100% 1px;
+}
+
+.btn-tertiary {
+  min-height: 0;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.btn-tertiary .btn-label {
+  background-size: 100% 1px;
+}
+
+.btn-tertiary:hover,
+.btn-tertiary:active {
+  color: var(--color-clay);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .btn,
+  .btn-label {
+    transition: none;
+  }
+}

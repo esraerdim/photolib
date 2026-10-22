@@ -20,7 +20,16 @@ npm run dev
 
 The site is at http://localhost:5173. The API is at http://localhost:3001.
 
-Before the API can reach the database, copy `server/.env.example` to `server/.env` and fill in `DATABASE_URL` and `AUTH_SECRET`. That file is listed in `.gitignore` and must not be committed.
+## Deploy
+
+The site and the API are published separately. Neither address is localhost.
+
+- Vercel serves `client/`. Set `VITE_API_URL` to the API's public https address. Vite reads it at build time and bakes it into the site.
+- Railway serves `server/`, with `npm start`. Set `DATABASE_URL`, `AUTH_SECRET`, `BETTER_AUTH_URL` (the API's own https address), and `CLIENT_ORIGIN` (the site's https address). No trailing slashes.
+
+The browser and the API are different sites, so a live session cookie is `SameSite=None; Secure`. On localhost it stays `SameSite=Lax`. The `.env` files stay off git; the host dashboards hold the real values.
+
+Before the API can reach the database, copy `server/.env.example` to `server/.env` and fill in `DATABASE_URL` and `AUTH_SECRET`. Copy `client/.env.example` to `client/.env` so the site knows the API address. Both `.env` files are gitignored and must not be committed.
 
 ## Structure
 

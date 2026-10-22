@@ -62,18 +62,12 @@ function Hero() {
             <p className="text-[17px] leading-relaxed sm:text-lg lg:text-xl">
               Lena Voss photographs buildings for architects and publishers — early light, few props, nothing forced.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                className="inline-flex min-h-10 items-center border border-ink px-3.5 py-2 text-sm leading-tight font-extrabold text-ink no-underline hover:bg-ink hover:text-paper"
-                href="#work"
-              >
-                See the work
+            <div className="flex flex-wrap items-center gap-6">
+              <a className="btn btn-secondary" href="#work">
+                <span className="btn-label">See the work</span>
               </a>
-              <a
-                className="inline-flex min-h-10 items-center px-1.5 py-2 text-sm leading-tight font-extrabold text-clay-deep no-underline hover:bg-clay/15"
-                href="#contact"
-              >
-                Book a shoot
+              <a className="btn btn-tertiary" href="#contact">
+                <span className="btn-label">Book a shoot</span>
               </a>
             </div>
           </div>
