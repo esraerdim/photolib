@@ -25,7 +25,7 @@ The site is at http://localhost:5173. The API is at http://localhost:3001.
 The site and the API are published separately. Neither address is localhost.
 
 - Vercel serves `client/`. Set `VITE_API_URL` to the API's public https address. Vite reads it at build time and bakes it into the site.
-- Railway serves `server/`, with `npm start`. Set `DATABASE_URL`, `AUTH_SECRET`, `BETTER_AUTH_URL` (the API's own https address), and `CLIENT_ORIGIN` (the site's https address). No trailing slashes.
+- Render serves `server/` (`https://photolib.onrender.com`), with `npm start`. Set `DATABASE_URL`, `AUTH_SECRET`, `BETTER_AUTH_URL` (the API's own https address), and `CLIENT_ORIGIN` (the site's https address, or a comma-separated list). No trailing slashes. The live site is on Vercel (`photolib-esra22.vercel.app` / `photolib-weld.vercel.app`).
 
 The browser and the API are different sites, so a live session cookie is `SameSite=None; Secure`. On localhost it stays `SameSite=Lax`. The `.env` files stay off git; the host dashboards hold the real values.
 

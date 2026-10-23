@@ -8,10 +8,19 @@ import contactRouter from './routes/contact.js'
 
 const app = express()
 const port = process.env.PORT || 3001
-const clientOrigin = process.env.CLIENT_ORIGIN?.replace(/\/$/, '')
+const clientOrigins = (process.env.CLIENT_ORIGIN ?? '')
+  .split(',')
+  .map((origin) => origin.trim().replace(/\/$/, ''))
+  .filter(Boolean)
 
 app.use(cors({
-  origin: clientOrigin,
+  origin(origin, callback) {
+    if (!origin || clientOrigins.includes(origin)) {
+      callback(null, true)
+      return
+    }
+    callback(null, false)
+  },
   credentials: true,
 }))
 
