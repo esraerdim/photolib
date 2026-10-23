@@ -28,50 +28,161 @@ function Account() {
     }
   }
 
+  function switchMode(next) {
+    setMode(next)
+    setError('')
+  }
+
   return (
-    <section className="mx-auto flex max-w-[760px] flex-col gap-8 px-5 py-16 sm:px-8 lg:px-[72px] lg:py-20" aria-labelledby="account-title">
-      <div>
-        <p className="text-[13px] leading-none tracking-[0.12em] text-clay-deep uppercase">Account</p>
-        <h1 id="account-title" className="mt-5 text-[32px] leading-none font-extrabold sm:text-5xl">
-          {creating ? 'Create an account' : 'Sign in'}
-        </h1>
-        <p className="mt-5 max-w-[42ch] text-base leading-relaxed sm:text-lg">
-          Stars and saved photographs stay with your account, including after a refresh.
-        </p>
-      </div>
-      <form className="flex max-w-[560px] flex-col gap-8" onSubmit={onSubmit}>
-        {creating ? (
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="account-name">Name</label>
-            <input id="account-name" className={fieldInput} name="name" type="text" required autoComplete="name" value={name} onChange={(event) => setName(event.target.value)} />
+    <section
+      className="flex min-h-[calc(100dvh-4.5rem)] flex-col border-b-2 border-ink/20 bg-sand lg:flex-row"
+      aria-labelledby="account-title"
+    >
+      <figure className="relative aspect-[5/4] min-w-0 overflow-hidden bg-paper sm:aspect-[16/10] lg:aspect-auto lg:w-[44%] lg:max-w-[640px] lg:min-h-full">
+        <img
+          className="h-full w-full object-cover"
+          src="/assets/img/about.jpg"
+          width="1000"
+          height="1400"
+          alt="Soft morning light across a concrete facade"
+        />
+        <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-gradient-to-t from-ink/70 via-ink/25 to-transparent px-5 pt-16 pb-5 text-paper sm:px-8">
+          <div>
+            <p className="text-[11px] tracking-[0.16em] uppercase opacity-80">Studio access</p>
+            <p className="mt-1.5 max-w-[22ch] text-lg leading-snug font-semibold sm:text-xl">
+              Keep the work you love close.
+            </p>
           </div>
-        ) : null}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="account-email">Email</label>
-          <input id="account-email" className={fieldInput} name="email" type="email" required autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="account-password">Password</label>
-          <input id="account-password" className={fieldInput} name="password" type="password" required minLength={8} autoComplete={creating ? 'new-password' : 'current-password'} value={password} onChange={(event) => setPassword(event.target.value)} />
-        </div>
-        {error ? <p className="text-sm text-clay-deep" role="alert">{error}</p> : null}
-        <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-          <button className="inline-flex min-h-14 min-w-[min(100%,240px)] items-center justify-between gap-8 bg-ink px-5 text-[15px] font-extrabold text-paper hover:bg-clay-deep disabled:opacity-60" type="submit" disabled={pending}>
-            <span>{creating ? 'Create account' : 'Sign in'}</span>
-            <span aria-hidden="true">→</span>
-          </button>
-          <button
-            className="text-sm text-ink underline decoration-ink/30 underline-offset-4 hover:text-clay"
-            type="button"
-            onClick={() => {
-              setMode(creating ? 'sign-in' : 'sign-up')
-              setError('')
-            }}
+          <span className="shrink-0 text-xs tracking-[0.12em] uppercase opacity-70">Lena Voss</span>
+        </figcaption>
+      </figure>
+
+      <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-20 xl:px-24">
+        <div className="mx-auto w-full max-w-[440px]">
+          <p className="text-[13px] leading-none tracking-[0.12em] text-clay-deep uppercase">Account</p>
+          <h1
+            id="account-title"
+            className="mt-5 text-[36px] leading-[0.96] font-extrabold tracking-[-0.03em] sm:text-5xl"
           >
-            {creating ? 'Already have an account? Sign in' : 'Need an account? Create one'}
-          </button>
+            {creating ? (
+              <>
+                Join the <span className="text-clay">studio.</span>
+              </>
+            ) : (
+              <>
+                Welcome <span className="text-clay">back.</span>
+              </>
+            )}
+          </h1>
+          <p className="mt-5 max-w-[36ch] text-base leading-relaxed text-muted sm:text-lg">
+            {creating
+              ? 'Create an account to rate photographs and save the ones you want to return to.'
+              : 'Sign in to pick up your saved photographs and ratings right where you left them.'}
+          </p>
+
+          <div
+            className="mt-9 flex border-b-2 border-ink/15"
+            role="tablist"
+            aria-label="Account mode"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={!creating}
+              className={`relative -mb-0.5 flex-1 px-1 pb-3 text-[13px] tracking-[0.14em] uppercase transition-colors ${
+                !creating
+                  ? 'border-b-2 border-ink font-semibold text-ink'
+                  : 'border-b-2 border-transparent text-muted hover:text-ink'
+              }`}
+              onClick={() => switchMode('sign-in')}
+            >
+              Sign in
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={creating}
+              className={`relative -mb-0.5 flex-1 px-1 pb-3 text-[13px] tracking-[0.14em] uppercase transition-colors ${
+                creating
+                  ? 'border-b-2 border-ink font-semibold text-ink'
+                  : 'border-b-2 border-transparent text-muted hover:text-ink'
+              }`}
+              onClick={() => switchMode('sign-up')}
+            >
+              Create account
+            </button>
+          </div>
+
+          <form className="mt-9 flex flex-col gap-7" onSubmit={onSubmit}>
+            {creating ? (
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="account-name">
+                  Name
+                </label>
+                <input
+                  id="account-name"
+                  className={fieldInput}
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </div>
+            ) : null}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="account-email">
+                Email
+              </label>
+              <input
+                id="account-email"
+                className={fieldInput}
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder="you@studio.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="account-password">
+                Password
+              </label>
+              <input
+                id="account-password"
+                className={fieldInput}
+                name="password"
+                type="password"
+                required
+                minLength={8}
+                autoComplete={creating ? 'new-password' : 'current-password'}
+                placeholder={creating ? 'At least 8 characters' : '••••••••'}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </div>
+
+            {error ? (
+              <p className="border-l-2 border-clay-deep bg-paper/60 px-3.5 py-2.5 text-sm text-clay-deep" role="alert">
+                {error}
+              </p>
+            ) : null}
+
+            <button
+              className="btn btn-primary mt-1 min-h-14 w-full justify-between gap-8 px-5 text-[15px] font-extrabold tracking-normal normal-case disabled:opacity-60"
+              type="submit"
+              disabled={pending}
+            >
+              <span className="btn-label">{creating ? 'Create account' : 'Sign in'}</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
         </div>
-      </form>
+      </div>
     </section>
   )
 }
