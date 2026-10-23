@@ -6,6 +6,7 @@
     "dev": "node --watch index.js",
     "start": "node index.js",
     "db:auth": "node migrate-auth.js",
+    "db:contact": "node migrate-contact.js",
     "db:seed": "node seed.js"
   },
   "dependencies": {

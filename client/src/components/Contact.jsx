@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { api } from '../api.js'
+
 const shootTypes = [
   'Completed building',
   'Interior',
@@ -9,6 +12,43 @@ const fieldInput =
   'w-full min-w-0 border-0 border-b-2 border-ink bg-transparent px-0 py-2.5 text-lg text-ink outline-none placeholder:text-ink/40 focus-visible:border-clay sm:text-2xl'
 
 function Contact() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [shootType, setShootType] = useState('Completed building')
+  const [dates, setDates] = useState('')
+  const [message, setMessage] = useState('')
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState('')
+  const [sent, setSent] = useState(false)
+
+  async function onSubmit(event) {
+    event.preventDefault()
+    setError('')
+    setPending(true)
+    try {
+      await api('/api/contact', {
+        method: 'POST',
+        body: JSON.stringify({
+          name,
+          email,
+          shootType,
+          preferredDates: dates,
+          message,
+        }),
+      })
+      setSent(true)
+      setName('')
+      setEmail('')
+      setShootType('Completed building')
+      setDates('')
+      setMessage('')
+    } catch (err) {
+      setError(err.message || 'Could not send the request')
+    } finally {
+      setPending(false)
+    }
+  }
+
   return (
     <section id="contact" className="scroll-mt-16 flex flex-col border-t-2 border-ink/20 bg-sky lg:flex-row" aria-labelledby="contact-title">
       <figure className="relative aspect-[4/5] w-full min-w-0 overflow-hidden bg-paper sm:aspect-[5/4] lg:aspect-auto lg:w-[42%] lg:max-w-[600px] lg:self-stretch">
@@ -35,48 +75,122 @@ function Contact() {
             Tell me about the building and when it will be ready. I reply within two working days — and I shoot before eight.
           </p>
         </div>
-        <form className="flex max-w-[760px] flex-col gap-8" action="mailto:hello@lenavoss.com" method="post" encType="text/plain" aria-label="Booking request">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-10">
-            <div className="flex min-w-0 flex-col gap-1.5">
-              <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-name">Name</label>
-              <input id="f-name" className={fieldInput} name="name" type="text" required autoComplete="name" placeholder="Your name" />
-            </div>
-            <div className="flex min-w-0 flex-col gap-1.5">
-              <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-email">Email</label>
-              <input id="f-email" className={fieldInput} name="email" type="email" required autoComplete="email" placeholder="you@studio.com" />
-            </div>
-          </div>
-          <fieldset className="m-0 flex min-w-0 flex-col gap-1.5 border-0 p-0">
-            <legend className="mb-2.5 p-0 text-xs tracking-[0.1em] text-muted uppercase">What are we shooting?</legend>
-            <div className="flex flex-wrap gap-2">
-              {shootTypes.map((type) => (
-                <label key={type} className="cursor-pointer">
-                  <input className="peer sr-only" type="radio" name="type" value={type} defaultChecked={type === 'Completed building'} />
-                  <span className="inline-block border border-ink px-4 py-2.5 text-sm leading-none peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-clay hover:bg-ink/10">
-                    {type}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <div className="flex min-w-0 flex-col gap-1.5">
-            <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-date">Preferred dates</label>
-            <input id="f-date" className={fieldInput} name="dates" type="text" placeholder="e.g. late March 2027" />
-          </div>
-          <div className="flex min-w-0 flex-col gap-1.5">
-            <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-msg">About the project</label>
-            <textarea id="f-msg" className={`${fieldInput} resize-y text-base leading-snug sm:text-xl`} name="message" rows="3" placeholder="Location, architect, and what the photographs are for" />
-          </div>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <button className="inline-flex min-h-14 min-w-[min(100%,280px)] items-center justify-between gap-8 bg-ink px-5 text-[15px] font-extrabold text-paper hover:bg-clay-deep" type="submit">
-              <span>Send request</span>
-              <span aria-hidden="true">→</span>
+
+        {sent ? (
+          <div className="flex max-w-[560px] flex-col gap-5 border-t-2 border-ink pt-8" role="status">
+            <p className="text-[28px] leading-none font-extrabold sm:text-4xl">
+              Request <span className="text-clay">received.</span>
+            </p>
+            <p className="max-w-[40ch] text-base leading-relaxed text-muted sm:text-lg">
+              Thanks — I'll reply within two working days. If it's urgent, write directly to{' '}
+              <a className="text-ink hover:text-clay" href="mailto:hello@lenavoss.com">hello@lenavoss.com</a>.
+            </p>
+            <button
+              type="button"
+              className="btn btn-secondary self-start"
+              onClick={() => setSent(false)}
+            >
+              <span className="btn-label">Send another</span>
             </button>
-            <span className="text-sm text-muted">
-              or write directly — <a className="text-ink hover:text-clay" href="mailto:hello@lenavoss.com">hello@lenavoss.com</a>
-            </span>
           </div>
-        </form>
+        ) : (
+          <form className="flex max-w-[760px] flex-col gap-8" onSubmit={onSubmit} aria-label="Booking request">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-10">
+              <div className="flex min-w-0 flex-col gap-1.5">
+                <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-name">Name</label>
+                <input
+                  id="f-name"
+                  className={fieldInput}
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </div>
+              <div className="flex min-w-0 flex-col gap-1.5">
+                <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-email">Email</label>
+                <input
+                  id="f-email"
+                  className={fieldInput}
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="you@studio.com"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </div>
+            </div>
+            <fieldset className="m-0 flex min-w-0 flex-col gap-1.5 border-0 p-0">
+              <legend className="mb-2.5 p-0 text-xs tracking-[0.1em] text-muted uppercase">What are we shooting?</legend>
+              <div className="flex flex-wrap gap-2">
+                {shootTypes.map((type) => (
+                  <label key={type} className="cursor-pointer">
+                    <input
+                      className="peer sr-only"
+                      type="radio"
+                      name="type"
+                      value={type}
+                      checked={shootType === type}
+                      onChange={() => setShootType(type)}
+                    />
+                    <span className="inline-block border border-ink px-4 py-2.5 text-sm leading-none peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-clay hover:bg-ink/10">
+                      {type}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <div className="flex min-w-0 flex-col gap-1.5">
+              <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-date">Preferred dates</label>
+              <input
+                id="f-date"
+                className={fieldInput}
+                name="dates"
+                type="text"
+                placeholder="e.g. late March 2027"
+                value={dates}
+                onChange={(event) => setDates(event.target.value)}
+              />
+            </div>
+            <div className="flex min-w-0 flex-col gap-1.5">
+              <label className="text-xs tracking-[0.1em] text-muted uppercase" htmlFor="f-msg">About the project</label>
+              <textarea
+                id="f-msg"
+                className={`${fieldInput} resize-y text-base leading-snug sm:text-xl`}
+                name="message"
+                rows="3"
+                placeholder="Location, architect, and what the photographs are for"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+              />
+            </div>
+
+            {error ? (
+              <p className="border-l-2 border-clay-deep bg-paper/60 px-3.5 py-2.5 text-sm text-clay-deep" role="alert">
+                {error}
+              </p>
+            ) : null}
+
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <button
+                className="inline-flex min-h-14 min-w-[min(100%,280px)] items-center justify-between gap-8 bg-ink px-5 text-[15px] font-extrabold text-paper hover:bg-clay-deep disabled:opacity-60"
+                type="submit"
+                disabled={pending}
+              >
+                <span>{pending ? 'Sending…' : 'Send request'}</span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <span className="text-sm text-muted">
+                or write directly — <a className="text-ink hover:text-clay" href="mailto:hello@lenavoss.com">hello@lenavoss.com</a>
+              </span>
+            </div>
+          </form>
+        )}
       </div>
     </section>
   )
