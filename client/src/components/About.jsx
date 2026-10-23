@@ -12,7 +12,7 @@ function About() {
               Lena photographs buildings the way she once drew them — in plan, in section, and before the furniture arrives. She works across Denmark, Sweden and Norway, usually before eight.
             </p>
           </div>
-          <figure className="relative aspect-[4/5] overflow-hidden bg-paper">
+          <figure className="relative aspect-[4/5] w-full overflow-hidden bg-paper">
             <img
               className="h-full w-full object-cover"
               src="/assets/img/about.jpg"

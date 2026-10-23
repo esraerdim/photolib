@@ -35,10 +35,10 @@ function Account() {
 
   return (
     <section
-      className="flex min-h-[calc(100dvh-4.5rem)] flex-col border-b-2 border-ink/20 bg-sand lg:flex-row"
+      className="flex min-h-[calc(100dvh-6.5rem)] flex-col border-b-2 border-ink/20 bg-sand md:min-h-[calc(100dvh-4.5rem)] lg:flex-row"
       aria-labelledby="account-title"
     >
-      <figure className="relative aspect-[5/4] min-w-0 overflow-hidden bg-paper sm:aspect-[16/10] lg:aspect-auto lg:w-[44%] lg:max-w-[640px] lg:min-h-full">
+      <figure className="relative aspect-[4/3] w-full min-w-0 overflow-hidden bg-paper sm:aspect-[16/10] lg:aspect-auto lg:w-[44%] lg:max-w-[640px] lg:min-h-full lg:self-stretch">
         <img
           className="h-full w-full object-cover"
           src="/assets/img/about.jpg"
@@ -57,7 +57,7 @@ function Account() {
         </figcaption>
       </figure>
 
-      <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-20 xl:px-24">
+      <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-10 sm:px-8 sm:py-14 lg:px-16 lg:py-20 xl:px-24">
         <div className="mx-auto w-full max-w-[440px]">
           <p className="text-[13px] leading-none tracking-[0.12em] text-clay-deep uppercase">Account</p>
           <h1

@@ -11,7 +11,7 @@ const fieldInput =
 function Contact() {
   return (
     <section id="contact" className="scroll-mt-16 flex flex-col border-t-2 border-ink/20 bg-sky lg:flex-row" aria-labelledby="contact-title">
-      <figure className="relative aspect-[4/5] min-w-0 overflow-hidden bg-paper sm:aspect-[5/4] lg:aspect-auto lg:w-[42%] lg:max-w-[600px]">
+      <figure className="relative aspect-[4/5] w-full min-w-0 overflow-hidden bg-paper sm:aspect-[5/4] lg:aspect-auto lg:w-[42%] lg:max-w-[600px] lg:self-stretch">
         <img
           className="h-full w-full object-cover"
           src="/assets/img/contact.jpg"

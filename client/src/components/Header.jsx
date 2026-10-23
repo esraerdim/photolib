@@ -23,17 +23,42 @@ function Header() {
         Skip to work
       </a>
       <nav
-        className="flex max-w-full flex-wrap items-center gap-x-9 gap-y-3 border-b-2 border-ink/20 px-5 py-3 sm:px-8 lg:px-[72px]"
+        className="flex flex-wrap items-center gap-x-3 gap-y-0 border-b-2 border-ink/20 px-4 py-2.5 sm:px-8 sm:py-3 md:flex-nowrap md:gap-x-5 lg:gap-x-8 lg:px-[72px]"
         aria-label="Primary"
       >
         <a
-          className="mr-auto text-lg font-extrabold whitespace-nowrap text-ink no-underline"
+          className="shrink-0 text-base font-extrabold whitespace-nowrap text-ink no-underline sm:text-lg"
           href="#top"
           onClick={showSite}
         >
           Lena Voss
         </a>
-        <ul className="m-0 flex list-none gap-9 p-0">
+
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2.5 md:order-last md:ml-0">
+          {ready && user ? (
+            <button type="button" className="btn btn-secondary" onClick={() => signOut()}>
+              <span className="btn-label">Sign out</span>
+            </button>
+          ) : null}
+          {ready && !user ? (
+            <button
+              type="button"
+              className="btn btn-secondary"
+              aria-current={screen === 'account' ? 'page' : undefined}
+              onClick={() => setScreen(screen === 'account' ? 'site' : 'account')}
+            >
+              <span className="btn-label">Sign in</span>
+            </button>
+          ) : null}
+          <a className="btn btn-primary" href="#contact" onClick={showSite}>
+            <span className="btn-label">
+              <span className="md:hidden">Book</span>
+              <span className="hidden md:inline">Book a shoot</span>
+            </span>
+          </a>
+        </div>
+
+        <ul className="m-0 order-last flex w-full list-none items-center justify-between gap-4 border-t border-ink/10 py-2.5 pt-2.5 sm:justify-center sm:gap-10 md:order-none md:ml-auto md:w-auto md:justify-start md:gap-7 md:border-0 md:py-0 lg:gap-9">
           {links.map((link) => (
             <li key={link.href}>
               <a className="nav-link" href={link.href} onClick={showSite}>
@@ -54,24 +79,6 @@ function Header() {
             </li>
           ) : null}
         </ul>
-        {ready && user ? (
-          <button type="button" className="btn btn-secondary" onClick={() => signOut()}>
-            <span className="btn-label">Sign out</span>
-          </button>
-        ) : null}
-        {ready && !user ? (
-          <button
-            type="button"
-            className="btn btn-secondary"
-            aria-current={screen === 'account' ? 'page' : undefined}
-            onClick={() => setScreen(screen === 'account' ? 'site' : 'account')}
-          >
-            <span className="btn-label">Sign in</span>
-          </button>
-        ) : null}
-        <a className="btn btn-primary" href="#contact" onClick={showSite}>
-          <span className="btn-label">Book a shoot</span>
-        </a>
       </nav>
     </header>
   )
