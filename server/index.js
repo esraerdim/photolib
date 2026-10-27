@@ -6,6 +6,7 @@ import { auth } from './auth.js'
 import worksRouter from './routes/works.js'
 import contactRouter from './routes/contact.js'
 import checkoutRouter from './routes/checkout.js'
+import { stripeWebhook } from './routes/webhook.js'
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -26,6 +27,8 @@ app.use(cors({
 }))
 
 app.all('/api/auth/*splat', toNodeHandler(auth))
+
+app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), stripeWebhook)
 
 app.use(express.json())
 
