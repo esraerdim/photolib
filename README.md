@@ -25,7 +25,7 @@ The site is at http://localhost:5173. The API is at http://localhost:3001.
 The site and the API are published separately. Neither address is localhost.
 
 - Vercel serves `client/`. Set `VITE_API_URL` to the API's public https address. Vite reads it at build time and bakes it into the site.
-- Render serves `server/` (`https://photolib.onrender.com`), with `npm start`. Set `DATABASE_URL`, `AUTH_SECRET`, `BETTER_AUTH_URL` (the API's own https address), and `CLIENT_ORIGIN` (the site's https address, or a comma-separated list). No trailing slashes. The live site is on Vercel (`photolib-esra22.vercel.app` / `photolib-weld.vercel.app`).
+- Render serves `server/` (`https://photolib.onrender.com`), with `npm start`. Set `DATABASE_URL`, `AUTH_SECRET`, `BETTER_AUTH_URL` (the API's own https address), `CLIENT_ORIGIN` (the site's https address, or a comma-separated list), and `STRIPE_SECRET_KEY` (test mode, `sk_test_...`). No trailing slashes. The live site is on Vercel (`photolib-esra22.vercel.app` / `photolib-weld.vercel.app`).
 
 The browser and the API are different sites, so a live session cookie is `SameSite=None; Secure`. On localhost it stays `SameSite=Lax`. The `.env` files stay off git; the host dashboards hold the real values.
 
@@ -54,6 +54,7 @@ public/assets/img photos
 - `GET /api/works` returns the photographs. A signed-in visitor also gets their own `rating` and `saved` on each one.
 - `PUT /api/works/:id/rating` and `PUT /api/works/:id/save` write that visitor's stars and saved list. Both require a session.
 - `POST /api/contact` stores a booking request from the contact form.
+- `POST /api/checkout` starts a Stripe Checkout session for one print. The caller must be signed in. The body is `{ workId }` only; the price is read from `works.price_cents`. The order is stored as `pending`. This route never marks an order paid.
 - `/api/auth/*` is Better Auth: sign up, sign in, sign out, and the session cookie.
 
-`server/auth.js` is Better Auth. It owns the `user`, `session`, `account`, and `verification` tables. `server/schema.sql` is ours: `works` (the photographs), `ratings` (one person's stars on one photograph), `saves` (one person's saved photographs), and `booking_requests` (contact form submissions). `npm run db:seed` copies `client/src/data/works.js` into `works`. `npm run db:contact` creates the booking table if it is missing.
+`server/auth.js` is Better Auth. It owns the `user`, `session`, `account`, and `verification` tables. `server/schema.sql` is ours: `works` (the photographs, including `price_cents`), `ratings` (one person's stars on one photograph), `saves` (one person's saved photographs), `booking_requests` (contact form submissions), `orders` (one row per purchase, `pending` until paid), and `order_items` (the print title and price at the moment of purchase). `npm run db:seed` copies `client/src/data/works.js` into `works`. `npm run db:contact` creates the booking table if it is missing.

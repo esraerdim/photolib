@@ -5,6 +5,7 @@ import { toNodeHandler } from 'better-auth/node'
 import { auth } from './auth.js'
 import worksRouter from './routes/works.js'
 import contactRouter from './routes/contact.js'
+import checkoutRouter from './routes/checkout.js'
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -34,6 +35,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/works', worksRouter)
 app.use('/api/contact', contactRouter)
+app.use('/api/checkout', checkoutRouter)
 
 app.use((err, req, res, _next) => {
   console.error(err)
