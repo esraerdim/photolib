@@ -6,6 +6,7 @@ import { auth } from './auth.js'
 import worksRouter from './routes/works.js'
 import contactRouter from './routes/contact.js'
 import checkoutRouter from './routes/checkout.js'
+import ordersRouter from './routes/orders.js'
 import { stripeWebhook } from './routes/webhook.js'
 
 const app = express()
@@ -39,6 +40,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/works', worksRouter)
 app.use('/api/contact', contactRouter)
 app.use('/api/checkout', checkoutRouter)
+app.use('/api/orders', ordersRouter)
 
 app.use((err, req, res, _next) => {
   console.error(err)

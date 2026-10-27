@@ -56,6 +56,7 @@ public/assets/img photos
 - `POST /api/contact` stores a booking request from the contact form.
 - `POST /api/checkout` starts a Stripe Checkout session for one print. The caller must be signed in. The body is `{ workId }` only; the price is read from `works.price_cents`. The order is stored as `pending`. This route never marks an order paid.
 - `POST /api/stripe/webhook` is called by Stripe. It checks the signature on the raw body. `checkout.session.completed` with `payment_status` of `paid` is the only event that sets an order to `paid`.
+- `GET /api/orders/session/:sessionId` returns that signed-in user's order: status, title, unit price, and quantity. It never changes the status. The success page calls it a few times, because the webhook can arrive just after Stripe redirects.
 - `/api/auth/*` is Better Auth: sign up, sign in, sign out, and the session cookie.
 
 `server/auth.js` is Better Auth. It owns the `user`, `session`, `account`, and `verification` tables. `server/schema.sql` is ours: `works` (the photographs, including `price_cents`), `ratings` (one person's stars on one photograph), `saves` (one person's saved photographs), `booking_requests` (contact form submissions), `orders` (one row per purchase, `pending` until paid), and `order_items` (the print title and price at the moment of purchase). `npm run db:seed` copies `client/src/data/works.js` into `works`. `npm run db:contact` creates the booking table if it is missing.
