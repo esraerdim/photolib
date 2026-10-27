@@ -51,7 +51,7 @@ public/assets/img photos
 `server/index.js` starts Express and mounts the routes.
 
 - `GET /api/health` checks that the server is up.
-- `GET /api/works` returns the photographs. A signed-in visitor also gets their own `rating` and `saved` on each one.
+- `GET /api/works` returns the photographs, including `price_cents`. A signed-in visitor also gets their own `rating` and `saved` on each one.
 - `PUT /api/works/:id/rating` and `PUT /api/works/:id/save` write that visitor's stars and saved list. Both require a session.
 - `POST /api/contact` stores a booking request from the contact form.
 - `POST /api/checkout` starts a Stripe Checkout session for one print. The caller must be signed in. The body is `{ workId }` only; the price is read from `works.price_cents`. The order is stored as `pending`. This route never marks an order paid.

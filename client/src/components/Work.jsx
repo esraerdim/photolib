@@ -25,6 +25,8 @@ function Work({ savedOnly = false }) {
   const [reloadKey, setReloadKey] = useState(0)
   const [year, setYear] = useState('all')
   const [openId, setOpenId] = useState(null)
+  const [buying, setBuying] = useState(false)
+  const [buyError, setBuyError] = useState('')
   const years = [...new Set(works.map((work) => work.year))].sort((a, b) => b - a)
   const visible = savedOnly
     ? works.filter((work) => work.saved)
@@ -129,6 +131,30 @@ function Work({ savedOnly = false }) {
     }
   }
 
+  async function buyPrint() {
+    if (!openWork) return
+    if (!user) {
+      askToSignIn()
+      return
+    }
+    setBuyError('')
+    setBuying(true)
+    try {
+      const { url } = await api('/api/checkout', {
+        method: 'POST',
+        body: JSON.stringify({ workId: openWork.id }),
+      })
+      window.location.assign(url)
+    } catch (err) {
+      setBuying(false)
+      if (err.status === 401) {
+        askToSignIn()
+        return
+      }
+      setBuyError(err.message || 'Checkout could not be started')
+    }
+  }
+
   const title = savedOnly ? 'Saved' : 'Selected work'
   const titleId = savedOnly ? 'saved-title' : 'work-title'
 
@@ -213,6 +239,9 @@ function Work({ savedOnly = false }) {
           work={openWork}
           position={openIndex + 1}
           total={visible.length}
+          buying={buying}
+          buyError={buyError}
+          onBuy={buyPrint}
           onClose={() => setOpenId(null)}
           onPrev={() => showNext(-1)}
           onNext={() => showNext(1)}

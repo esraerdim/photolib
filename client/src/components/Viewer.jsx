@@ -1,4 +1,8 @@
-function Viewer({ work, position, total, onClose, onPrev, onNext }) {
+function formatEuros(cents) {
+  return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(cents / 100)
+}
+
+function Viewer({ work, position, total, buying, buyError, onBuy, onClose, onPrev, onNext }) {
   return (
     <div
       className="fixed inset-0 z-30 grid grid-rows-[auto_minmax(0,1fr)_auto] bg-paper/95 text-ink"
@@ -31,7 +35,15 @@ function Viewer({ work, position, total, onClose, onPrev, onNext }) {
         <span className="text-base font-extrabold sm:text-xl">
           {work.title}, {work.place} <span className="font-normal text-muted">{work.year}</span>
         </span>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="inline-flex min-h-10 items-center border border-ink bg-ink px-3.5 py-2 text-sm font-extrabold text-paper hover:bg-clay disabled:opacity-60"
+            disabled={buying}
+            onClick={onBuy}
+          >
+            {buying ? 'Opening checkout' : `Buy print · ${formatEuros(work.price_cents)}`}
+          </button>
           <button
             type="button"
             className="inline-flex min-h-10 items-center border border-ink px-3.5 py-2 text-sm font-extrabold hover:bg-ink hover:text-paper"
@@ -47,6 +59,11 @@ function Viewer({ work, position, total, onClose, onPrev, onNext }) {
             Next →
           </button>
         </div>
+        {buyError ? (
+          <p className="basis-full border-l-2 border-clay-deep bg-paper/60 px-3.5 py-2.5 text-sm text-clay-deep" role="alert">
+            {buyError}
+          </p>
+        ) : null}
       </div>
     </div>
   )

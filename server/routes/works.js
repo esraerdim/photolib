@@ -27,7 +27,7 @@ router.get('/', catchErrors(async (req, res) => {
   const user = await signedInUser(req)
   const result = await pool.query(
     `select
-       w.id, w.title, w.place, w.year, w.src, w.alt, w.width, w.height,
+       w.id, w.title, w.place, w.year, w.src, w.alt, w.width, w.height, w.price_cents,
        coalesce(r.value, 0)::int as rating,
        (s.work_id is not null) as saved
      from works w
