@@ -8,8 +8,8 @@ await pool.query(schema)
 
 for (const work of works) {
   await pool.query(
-    `insert into works (id, title, place, year, src, alt, width, height)
-     values ($1, $2, $3, $4, $5, $6, $7, $8)
+    `insert into works (id, title, place, year, src, alt, width, height, price_cents)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
      on conflict (id) do update set
        title = excluded.title,
        place = excluded.place,
@@ -17,8 +17,9 @@ for (const work of works) {
        src = excluded.src,
        alt = excluded.alt,
        width = excluded.width,
-       height = excluded.height`,
-    [work.id, work.title, work.place, work.year, work.src, work.alt, work.width, work.height],
+       height = excluded.height,
+       price_cents = excluded.price_cents`,
+    [work.id, work.title, work.place, work.year, work.src, work.alt, work.width, work.height, work.priceCents],
   )
 }
 

@@ -8,6 +8,7 @@ export const works = [
     alt: "Lecture hall, Aarhus, 2026",
     width: 1000,
     height: 1250,
+    priceCents: 4500,
   },
   {
     id: "02",
@@ -18,6 +19,7 @@ export const works = [
     alt: "Ferry terminal, Helsingør, 2025",
     width: 1000,
     height: 1250,
+    priceCents: 5200,
   },
   {
     id: "03",
@@ -28,6 +30,7 @@ export const works = [
     alt: "Row houses, Ørestad, 2025",
     width: 1000,
     height: 1250,
+    priceCents: 3800,
   },
   {
     id: "04",
@@ -38,6 +41,7 @@ export const works = [
     alt: "Library stair, Malmö, 2025",
     width: 1000,
     height: 1250,
+    priceCents: 6100,
   },
   {
     id: "05",
@@ -48,6 +52,7 @@ export const works = [
     alt: "Water tower, Lund, 2024",
     width: 1000,
     height: 1250,
+    priceCents: 4700,
   },
   {
     id: "06",
@@ -58,6 +63,7 @@ export const works = [
     alt: "Studio house, Bornholm, 2024",
     width: 1000,
     height: 1250,
+    priceCents: 7300,
   },
   {
     id: "07",
@@ -68,6 +74,7 @@ export const works = [
     alt: "Concrete chapel, Kalmar, 2024",
     width: 1000,
     height: 1250,
+    priceCents: 5600,
   },
   {
     id: "08",
@@ -78,6 +85,7 @@ export const works = [
     alt: "Housing block, Nørrebro, 2023",
     width: 1000,
     height: 1250,
+    priceCents: 4200,
   },
   {
     id: "09",
@@ -88,6 +96,7 @@ export const works = [
     alt: "Bath house, Vejle, 2023",
     width: 1000,
     height: 1250,
+    priceCents: 6800,
   },
   {
     id: "10",
@@ -98,6 +107,7 @@ export const works = [
     alt: "Timber school, Växjö, 2022",
     width: 1000,
     height: 1250,
+    priceCents: 3900,
   },
   {
     id: "11",
@@ -108,6 +118,7 @@ export const works = [
     alt: "Silo conversion, Odense, 2022",
     width: 1000,
     height: 1250,
+    priceCents: 8100,
   },
   {
     id: "12",
@@ -118,5 +129,6 @@ export const works = [
     alt: "Summer house, Tisvilde, 2021",
     width: 1000,
     height: 1250,
+    priceCents: 5400,
   },
 ]
