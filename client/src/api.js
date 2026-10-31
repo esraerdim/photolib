@@ -1,4 +1,4 @@
-const apiUrl = import.meta.env.VITE_API_URL
+export const apiUrl = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '')
 
 export async function api(path, options = {}) {
   const response = await fetch(`${apiUrl}${path}`, {
