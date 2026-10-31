@@ -6,6 +6,7 @@ export function SessionProvider({ children }) {
   const [user, setUser] = useState(null)
   const [ready, setReady] = useState(false)
   const [screen, setScreen] = useState('site')
+  const [accountIntent, setAccountIntent] = useState(null)
 
   async function refresh() {
     const session = await api('/api/auth/get-session')
@@ -37,6 +38,7 @@ export function SessionProvider({ children }) {
       body: JSON.stringify({ email, password }),
     })
     await refresh()
+    setAccountIntent(null)
     setScreen('site')
   }
 
@@ -46,21 +48,25 @@ export function SessionProvider({ children }) {
       body: JSON.stringify({ name, email, password }),
     })
     await refresh()
+    setAccountIntent(null)
     setScreen('site')
   }
 
   async function signOut() {
     await api('/api/auth/sign-out', { method: 'POST', body: '{}' })
     setUser(null)
+    setAccountIntent(null)
     setScreen('site')
   }
 
-  function askToSignIn() {
+  function askToSignIn(intent) {
+    setAccountIntent(intent === 'buy' ? 'buy' : null)
     setScreen('account')
+    window.scrollTo(0, 0)
   }
 
   return (
-    <SessionContext.Provider value={{ user, ready, screen, setScreen, signIn, signUp, signOut, askToSignIn }}>
+    <SessionContext.Provider value={{ user, ready, screen, setScreen, accountIntent, signIn, signUp, signOut, askToSignIn }}>
       {children}
     </SessionContext.Provider>
   )

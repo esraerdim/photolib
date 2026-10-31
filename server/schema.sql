@@ -44,6 +44,12 @@ create table if not exists orders (
   created_at timestamptz not null default now()
 );
 
+alter table "user" add column if not exists role text not null default 'user';
+
+update "user"
+set role = 'admin'
+where lower(email) = 'esra.erdim@tasarlab.com';
+
 create table if not exists order_items (
   id bigserial primary key,
   order_id bigint not null references orders (id) on delete cascade,

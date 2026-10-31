@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { betterAuth } from 'better-auth'
+import { isAdminEmail } from './adminEmail.js'
 import pool from './db.js'
 
 const baseURL = process.env.BETTER_AUTH_URL?.replace(/\/$/, '')
@@ -16,6 +17,26 @@ export const auth = betterAuth({
   trustedOrigins: clientOrigins,
   emailAndPassword: {
     enabled: true,
+  },
+  user: {
+    additionalFields: {
+      role: {
+        type: 'string',
+        required: false,
+        defaultValue: 'user',
+        input: false,
+      },
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          if (!isAdminEmail(user.email)) return
+          return { data: { ...user, role: 'admin' } }
+        },
+      },
+    },
   },
   ...(crossSite
     ? {

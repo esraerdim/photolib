@@ -5,8 +5,9 @@ const fieldInput =
   'w-full min-w-0 border-0 border-b-2 border-ink bg-transparent px-0 py-2.5 text-lg text-ink outline-none placeholder:text-ink/40 focus-visible:border-clay sm:text-2xl'
 
 function Account() {
-  const { signIn, signUp } = useSession()
-  const [mode, setMode] = useState('sign-in')
+  const { signIn, signUp, accountIntent } = useSession()
+  const joiningToBuy = accountIntent === 'buy'
+  const [mode, setMode] = useState(joiningToBuy ? 'sign-up' : 'sign-in')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -75,9 +76,13 @@ function Account() {
             )}
           </h1>
           <p className="mt-5 max-w-[36ch] text-base leading-relaxed text-muted sm:text-lg">
-            {creating
-              ? 'Create an account to rate photographs and save the ones you want to return to.'
-              : 'Sign in to pick up your saved photographs and ratings right where you left them.'}
+            {joiningToBuy
+              ? creating
+                ? 'Create an account to buy a print.'
+                : 'Sign in to buy a print.'
+              : creating
+                ? 'Create an account to rate photographs and save the ones you want to return to.'
+                : 'Sign in to pick up your saved photographs and ratings right where you left them.'}
           </p>
 
           <div

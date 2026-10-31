@@ -131,10 +131,17 @@ function Work({ savedOnly = false }) {
     }
   }
 
+  function requireAccountToBuy() {
+    setBuying(false)
+    setBuyError('')
+    setOpenId(null)
+    askToSignIn('buy')
+  }
+
   async function buyPrint() {
     if (!openWork) return
     if (!user) {
-      askToSignIn()
+      requireAccountToBuy()
       return
     }
     setBuyError('')
@@ -148,7 +155,7 @@ function Work({ savedOnly = false }) {
     } catch (err) {
       setBuying(false)
       if (err.status === 401) {
-        askToSignIn()
+        requireAccountToBuy()
         return
       }
       setBuyError(err.message || 'Checkout could not be started')

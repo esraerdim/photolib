@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Account from './components/Account.jsx'
+import Admin from './components/Admin.jsx'
 import OrderSuccess from './components/OrderSuccess.jsx'
 import Work from './components/Work.jsx'
 import SiteLayout from './layouts/SiteLayout.jsx'
@@ -15,16 +16,18 @@ function readCheckout() {
 }
 
 function App() {
-  const { screen } = useSession()
+  const { user, screen } = useSession()
   const [{ checkout, sessionId }] = useState(readCheckout)
   const showSuccess = checkout === 'success' && sessionId && screen !== 'account'
+  const showAdmin = screen === 'admin' && user?.role === 'admin'
 
   return (
     <SiteLayout>
       {screen === 'account' ? <Account /> : null}
       {showSuccess ? <OrderSuccess sessionId={sessionId} /> : null}
       {!showSuccess && screen === 'saved' ? <Work savedOnly /> : null}
-      {!showSuccess && screen === 'site' ? <Home /> : null}
+      {!showSuccess && showAdmin ? <Admin /> : null}
+      {!showSuccess && (screen === 'site' || (screen === 'admin' && !showAdmin)) ? <Home /> : null}
     </SiteLayout>
   )
 }

@@ -7,7 +7,7 @@ const links = [
 ]
 
 function Header() {
-  const { user, ready, screen, setScreen, signOut } = useSession()
+  const { user, ready, screen, setScreen, signOut, askToSignIn } = useSession()
 
   function showSite() {
     setScreen('site')
@@ -45,7 +45,7 @@ function Header() {
               type="button"
               className="btn btn-secondary"
               aria-current={screen === 'account' ? 'page' : undefined}
-              onClick={() => setScreen(screen === 'account' ? 'site' : 'account')}
+              onClick={() => (screen === 'account' ? setScreen('site') : askToSignIn())}
             >
               <span className="btn-label">Sign in</span>
             </button>
@@ -75,6 +75,18 @@ function Header() {
                 onClick={() => setScreen('saved')}
               >
                 Saved
+              </button>
+            </li>
+          ) : null}
+          {user?.role === 'admin' ? (
+            <li>
+              <button
+                type="button"
+                className="nav-link"
+                aria-current={screen === 'admin' ? 'page' : undefined}
+                onClick={() => setScreen('admin')}
+              >
+                Admin
               </button>
             </li>
           ) : null}

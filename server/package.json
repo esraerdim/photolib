@@ -7,6 +7,7 @@
     "start": "node index.js",
     "db:auth": "node migrate-auth.js",
     "db:contact": "node migrate-contact.js",
+    "db:admin": "node migrate-admin.js",
     "db:seed": "node seed.js"
   },
   "dependencies": {
