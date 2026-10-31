@@ -144,6 +144,7 @@ function Work({ savedOnly = false }) {
       requireAccountToBuy()
       return
     }
+    if (openWork.owned) return
     setBuyError('')
     setBuying(true)
     try {
@@ -158,6 +159,7 @@ function Work({ savedOnly = false }) {
         requireAccountToBuy()
         return
       }
+      if (err.status === 409) patchWork(openWork.id, { owned: true })
       setBuyError(err.message || 'Checkout could not be started')
     }
   }

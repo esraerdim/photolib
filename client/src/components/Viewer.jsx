@@ -2,6 +2,16 @@ function formatEuros(cents) {
   return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' }).format(cents / 100)
 }
 
+function photographName(work) {
+  const match = String(work.src ?? '').toLowerCase().match(/\.(jpe?g|png|webp)$/)
+  const ext = match ? `.${match[1] === 'jpeg' ? 'jpg' : match[1]}` : '.jpg'
+  const base = String(work.title ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'photograph'
+  return `${base}${ext}`
+}
+
 function Viewer({ work, position, total, buying, buyError, onBuy, onClose, onPrev, onNext }) {
   return (
     <div
@@ -36,14 +46,24 @@ function Viewer({ work, position, total, buying, buyError, onBuy, onClose, onPre
           {work.title}, {work.place} <span className="font-normal text-muted">{work.year}</span>
         </span>
         <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            className="inline-flex min-h-10 items-center border border-ink bg-ink px-3.5 py-2 text-sm font-extrabold text-paper hover:bg-clay disabled:opacity-60"
-            disabled={buying}
-            onClick={onBuy}
-          >
-            {buying ? 'Opening checkout' : `Buy print · ${formatEuros(work.price_cents)}`}
-          </button>
+          {work.owned ? (
+            <a
+              href={work.src}
+              download={photographName(work)}
+              className="inline-flex min-h-10 items-center border border-ink bg-ink px-3.5 py-2 text-sm font-extrabold text-paper no-underline hover:bg-clay"
+            >
+              Download · yours
+            </a>
+          ) : (
+            <button
+              type="button"
+              className="inline-flex min-h-10 items-center border border-ink bg-ink px-3.5 py-2 text-sm font-extrabold text-paper hover:bg-clay disabled:opacity-60"
+              disabled={buying}
+              onClick={onBuy}
+            >
+              {buying ? 'Opening checkout' : `Buy print · ${formatEuros(work.price_cents)}`}
+            </button>
+          )}
           <button
             type="button"
             className="inline-flex min-h-10 items-center border border-ink px-3.5 py-2 text-sm font-extrabold hover:bg-ink hover:text-paper"

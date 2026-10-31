@@ -29,7 +29,12 @@ router.get('/', catchErrors(async (req, res) => {
     `select
        w.id, w.title, w.place, w.year, w.src, w.alt, w.width, w.height, w.price_cents,
        coalesce(r.value, 0)::int as rating,
-       (s.work_id is not null) as saved
+       (s.work_id is not null) as saved,
+       exists (
+         select 1 from orders o
+         join order_items i on i.order_id = o.id
+         where o.user_id = $1 and o.status = 'paid' and i.work_id = w.id
+       ) as owned
      from works w
      left join ratings r on r.work_id = w.id and r.user_id = $1
      left join saves s on s.work_id = w.id and s.user_id = $1

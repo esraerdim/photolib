@@ -46,6 +46,19 @@ router.post('/', requireUser, catchErrors(async (req, res) => {
     return
   }
 
+  const owned = await pool.query(
+    `select 1
+     from orders o
+     join order_items i on i.order_id = o.id
+     where o.user_id = $1 and o.status = 'paid' and i.work_id = $2
+     limit 1`,
+    [req.user.id, work.id],
+  )
+  if (owned.rowCount > 0) {
+    res.status(409).json({ error: 'You already own this photograph' })
+    return
+  }
+
   const client = await pool.connect()
   let orderId
   try {
